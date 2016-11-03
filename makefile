@@ -1,16 +1,13 @@
+GCC = gcc -g
+
 all: dir.o
-	gcc -o dir.out dir.o
+	$(GCC) -o dir.out dir.o
 
 dir.o: dir.c
-	gcc -c dir.c
+	$(GCC) -c dir.c
 
 run: dir.out
 	./dir.out
 
 clean:
-	make -i cleanH
-
-cleanH:
-	rm *~
-	rm *.out
-	rm *.o
+	rm -f *~ *.out *.o
