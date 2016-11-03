@@ -9,6 +9,7 @@
 
 int total_size(DIR *d) {
   struct dirent *dirdata = (struct dirent *)calloc(sizeof(struct dirent), 1);
+  struct dirent *tmp = dirdata;
   struct stat *metadata = (struct stat *)calloc(sizeof(struct stat), 1);
   int size = 0;
   while (dirdata = readdir(d)) {
@@ -16,7 +17,7 @@ int total_size(DIR *d) {
     size += metadata->st_size;
     // printf("File Name: %s\n", dirdata->d_name); // Debugging
   }
-  free(dirdata); free(metadata);
+  free(metadata); free(tmp);
   rewinddir(d);
   return size;
 }
@@ -38,6 +39,7 @@ int print_size(int i) {
 void print_contents(DIR *d) {
   struct dirent *dirdata = (struct dirent *)calloc(sizeof(struct dirent), 1);
   struct stat *metadata = (struct stat *)calloc(sizeof(struct stat), 1);
+  struct dirent *tmp = dirdata;
   printf("Directories:\t");
   while (dirdata = readdir(d)) { // Directories
     stat(dirdata->d_name, metadata);
@@ -53,7 +55,7 @@ void print_contents(DIR *d) {
       printf("%s\n\t\t", dirdata->d_name);
   }
   printf("\n");
-  free(dirdata); free(metadata);
+  free(metadata); free(tmp);
   rewinddir(d);
 }
 
